@@ -1,0 +1,49 @@
+<head>
+    <title>Todo List</title>
+</head>
+<script>
+async function GetDataFromBackend(){
+    let a = await fetch("http://localhost:3000/todos",{
+        method : "GET" ,
+        headers : {
+            "Content-Type": "application/json"
+        }
+    })
+    let b = await a.json()
+    return b;
+}
+
+async function RenderDataFromBackend(){
+    let a = await GetDataFromBackend();
+    let b = Object.values(a)
+    let parentElement = document.getElementById("mainArea")
+    parentElement.innerHTML = ''
+    let k = []
+    let apple = []
+    for(let i = 0; i < b.length; i++){
+        let alba = document.createElement('div')
+        alba.setAttribute('id',b[i].id)
+        apple.push(alba)
+        let title = document.createElement('div')
+        title.innerHTML = b[i].title
+        let description = document.createElement('div')
+        description.innerHTML = b[i].description
+        alba.appendChild(title)
+        alba.appendChild(description)
+        parentElement.appendChild(alba)
+    }
+    k.push(a,apple)
+    return k
+}
+RenderDataFromBackend()
+</script>
+<body>
+    Welcome
+    <div>
+    <input type="text" name = "title" id = "title">
+    <input type="text" name = "description" id = "description">
+    <button type="submit" onclick="add()">Add Todo</button>
+    </div>
+    <div id = "mainArea"></div>
+</body>
+
