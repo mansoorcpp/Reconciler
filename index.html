@@ -1,49 +1,48 @@
-<head>
-    <title>Todo List</title>
-</head>
-<script>
-async function GetDataFromBackend(){
-    let a = await fetch("http://localhost:3000/todos",{
-        method : "GET" ,
-        headers : {
-            "Content-Type": "application/json"
-        }
-    })
-    let b = await a.json()
-    return b;
-}
+<!DOCTYPE html>
+<html>
 
-async function RenderDataFromBackend(){
-    let a = await GetDataFromBackend();
-    let b = Object.values(a)
-    let parentElement = document.getElementById("mainArea")
-    parentElement.innerHTML = ''
-    let k = []
-    let apple = []
-    for(let i = 0; i < b.length; i++){
-        let alba = document.createElement('div')
-        alba.setAttribute('id',b[i].id)
-        apple.push(alba)
-        let title = document.createElement('div')
-        title.innerHTML = b[i].title
-        let description = document.createElement('div')
-        description.innerHTML = b[i].description
-        alba.appendChild(title)
-        alba.appendChild(description)
-        parentElement.appendChild(alba)
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <style>
+    body {
+      background-color: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
     }
-    k.push(a,apple)
-    return k
-}
-RenderDataFromBackend()
-</script>
+
+    #mainArea {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .todo {
+      background-color: #333;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+
+    .todo-title {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .todo-description {
+      font-style: italic;
+    }
+  </style>
+</head>
+
 <body>
-    Welcome
-    <div>
-    <input type="text" name = "title" id = "title">
-    <input type="text" name = "description" id = "description">
-    <button type="submit" onclick="add()">Add Todo</button>
-    </div>
-    <div id = "mainArea"></div>
+  <div id="mainArea"></div>
+  <script src="script.js"></script>
 </body>
 
+</html>
